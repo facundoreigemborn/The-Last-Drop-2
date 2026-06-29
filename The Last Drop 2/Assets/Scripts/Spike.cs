@@ -1,29 +1,19 @@
 using UnityEngine;
 
-public class Spike : MonoBehaviour
+public class Spike : Trampas
 {
-    [SerializeField] private int dano = 1;
-
-    // Hace daño al jugador
-    public void HacerDano(Player p)
-    {
-        p.Damage(dano);
-    }
-
-    // Activa la trampa
-    public void Activar(Player p)
-    {
-        HacerDano(p);
-    }
-
-    // Cuando el jugador toca la spike
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Player jugador = other.GetComponent<Player>();
-
-        if (jugador != null)
+        if (other.CompareTag("Player"))
         {
-            Activar(jugador);
+            Player player = other.GetComponent<Player>();
+            if (player != null)
+            {
+                player.Damage(1);
+                print("hizo daño");
+            }
         }
     }
+
+    public override void Activar(GameObject objetivo) { }
 }
