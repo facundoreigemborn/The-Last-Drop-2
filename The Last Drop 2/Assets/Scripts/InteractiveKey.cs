@@ -2,12 +2,27 @@ using UnityEngine;
 
 public class InteractiveKey : MonoBehaviour
 {
+    [Header("Configuración de Interacción")]
     public string interactKey = "e";
     public Collider2D playerCollider;
+
+    [Header("Referencias de Objetos")]
+    [SerializeField] private GameObject textoPressE; // <-- NUEVO: Arrastrá acá el Canvas o Texto hijo
     public GameObject blockedPipePortal;
+
+    [Header("Estado")]
     public bool hasBeenCollected = false;
 
     private bool jugadorCerca = false;
+
+    private void Start()
+    {
+        // Nos aseguramos de que el cartel arranque apagado al empezar el juego
+        if (textoPressE != null)
+        {
+            textoPressE.SetActive(false);
+        }
+    }
 
     private void Update()
     {
@@ -16,6 +31,12 @@ public class InteractiveKey : MonoBehaviour
         {
             hasBeenCollected = true;
             Debug.Log("¡Llave recogida con éxito!");
+
+            // Ocultamos el cartel inmediatamente al agarrar la llave
+            if (textoPressE != null)
+            {
+                textoPressE.SetActive(false);
+            }
 
             // Buscamos el script del caño en el objeto que arrastraste y lo desbloqueamos
             if (blockedPipePortal != null)
@@ -40,6 +61,12 @@ public class InteractiveKey : MonoBehaviour
         {
             jugadorCerca = true;
             Debug.Log("El jugador está tocando la llave. ¡Apretá la E!");
+
+            // <-- NUEVO: Mostramos el cartel cuando entra el jugador
+            if (textoPressE != null && !hasBeenCollected)
+            {
+                textoPressE.SetActive(true);
+            }
         }
     }
 
@@ -49,6 +76,12 @@ public class InteractiveKey : MonoBehaviour
         if (collision == playerCollider || collision.GetComponent<Player>() != null)
         {
             jugadorCerca = false;
+
+            // <-- NUEVO: Ocultamos el cartel cuando se va
+            if (textoPressE != null)
+            {
+                textoPressE.SetActive(false);
+            }
         }
     }
 }

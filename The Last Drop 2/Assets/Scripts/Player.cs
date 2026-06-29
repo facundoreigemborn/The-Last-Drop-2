@@ -8,11 +8,15 @@ public class Player : MonoBehaviour
     [SerializeField] private int disparo;
     [SerializeField] private bool tieneBazooka = false;
 
-    // Variables de control de f�sicas internas
+    // Variables de control de físicas internas
     private Rigidbody2D rb;
     private Vector2 direccionEntrada;
 
-    // --- PROPIEDADES P�BLICAS (Para leer o modificar de forma segura desde afuera) ---
+    // Componentes para la animación
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+
+    // --- PROPIEDADES PÚBLICAS ---
     public int Vida
     {
         get => vida;
@@ -37,10 +41,20 @@ public class Player : MonoBehaviour
         set => tieneBazooka = value;
     }
 
-    // --- MeTODOS DE UNITY ---
+    // --- MÉTODOS DE UNITY ---
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        // Inicializamos los componentes del Animator y SpriteRenderer
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        // Dirección inicial por defecto del Idle (mirando abajo)
+        if (animator != null)
+        {
+            animator.SetFloat("idleY", -1f);
+        }
     }
 
     private void Update()
@@ -48,6 +62,39 @@ public class Player : MonoBehaviour
         // Entrada por teclado
         direccionEntrada.x = Input.GetAxisRaw("Horizontal");
         direccionEntrada.y = Input.GetAxisRaw("Vertical");
+
+        // --- CONTROL DE ANIMACIONES ---
+        if (animator != null)
+        {
+            // Calculamos la magnitud de movimiento (0 quieto, >0 moviéndose)
+            float velocidadActual = direccionEntrada.sqrMagnitude;
+            animator.SetFloat("Speed", velocidadActual);
+
+            if (velocidadActual > 0)
+            {
+                // Si hay input, actualizamos caminar
+                animator.SetFloat("moveX", direccionEntrada.x);
+                animator.SetFloat("moveY", direccionEntrada.y);
+
+                // Y guardamos la dirección para cuando pase a Idle
+                animator.SetFloat("idleX", direccionEntrada.x);
+                animator.SetFloat("idleY", direccionEntrada.y);
+            }
+        }
+
+        // Espejar el sprite si va a la izquierda usando la animación de la derecha
+        if (spriteRenderer != null)
+        {
+            if (direccionEntrada.x < 0)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else if (direccionEntrada.x > 0)
+            {
+                spriteRenderer.flipX = false;
+            }
+        }
+        // ------------------------------
 
         if (Input.GetButtonDown("Fire1"))
         {
@@ -57,15 +104,15 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Enviamos el Vector3 al m�todo Move como pide tu diagrama
+        // Enviamos el Vector3 al método Move como pide tu diagrama
         Vector3 dir = new Vector3(direccionEntrada.x, direccionEntrada.y, 0).normalized;
         Move(dir);
     }
 
-    // --- MTODOS DEL DIAGRAMA ---
+    // --- MÉTODOS DEL DIAGRAMA ---
     public void Move(Vector3 dir)
     {
-        // Usamos la variable privada encapsulada para las fsicas
+        // Usamos la variable privada encapsulada para las físicas
         rb.linearVelocity = new Vector2(dir.x * velocidad, dir.y * velocidad);
     }
 
@@ -88,9 +135,8 @@ public class Player : MonoBehaviour
 
     public void Damage(int cantidadDano)
     {
-        // Modificamos la vida a trav�s de su propiedad para mantener las reglas de negocio
         Vida -= cantidadDano;
-        Debug.Log($"Player recibi� da�o. Vida restante: {Vida}");
+        Debug.Log($"Player recibió daño. Vida restante: {Vida}");
 
         if (Vida <= 0)
         {
@@ -102,6 +148,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Player Muerto - Game Over");
         rb.linearVelocity = Vector2.zero;
+        if (animator != null) animator.enabled = false;
         this.enabled = false; // Desactiva el script de movimiento
     }
 }
