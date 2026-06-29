@@ -1,28 +1,19 @@
 fileFormatVersion: 2
-guid: fff9f7d582624ec4d9dbd522ce53c2c0
+guid: 4b82df796074c0344a23dfbdce93448b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4723107735738678597
-    second: Idle_0
+      213: 8497063342416556143
+    second: Untitled - 28 de junio de 2026 a las 20.56.04_0
   - first:
-      213: -7385789195546760866
-    second: Idle_1
+      213: 9133606437599885255
+    second: Untitled - 28 de junio de 2026 a las 20.56.04_1
   - first:
-      213: 3234629978573100161
-    second: Idle_2
+      213: 2966301367134159113
+    second: Untitled - 28 de junio de 2026 a las 20.56.04_2
   - first:
-      213: 6373048116405451881
-    second: Idle_3
-  - first:
-      213: 7264182050183361747
-    second: Idle_4
-  - first:
-      213: -2834552850196481573
-    second: Idle_5
-  - first:
-      213: 3278449094680734212
-    second: Idle_6
+      213: 419774132079231877
+    second: Untitled - 28 de junio de 2026 a las 20.56.04_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -118,13 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Idle_0
+      name: Untitled - 28 de junio de 2026 a las 20.56.04_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 2
-        width: 40
-        height: 42
+        x: 8
+        y: 7
+        width: 60
+        height: 59
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -133,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 54d7a982679db8140800000000000000
-      internalID: 4723107735738678597
+      spriteID: f607bbe2712abe570800000000000000
+      internalID: 8497063342416556143
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle_1
+      name: Untitled - 28 de junio de 2026 a las 20.56.04_1
       rect:
         serializedVersion: 2
-        x: 16
-        y: 41
-        width: 6
-        height: 6
+        x: 84
+        y: 6
+        width: 60
+        height: 59
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,20 +146,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e596485bbd7608990800000000000000
-      internalID: -7385789195546760866
+      spriteID: 7c7bc5fb9a611ce70800000000000000
+      internalID: 9133606437599885255
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle_2
+      name: Untitled - 28 de junio de 2026 a las 20.56.04_2
       rect:
         serializedVersion: 2
-        x: 53
-        y: 1
-        width: 42
-        height: 47
+        x: 160
+        y: 6
+        width: 60
+        height: 59
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -177,20 +168,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 184dda4e3d6b3ec20800000000000000
-      internalID: 3234629978573100161
+      spriteID: 90189c4906b6a2920800000000000000
+      internalID: 2966301367134159113
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle_3
+      name: Untitled - 28 de junio de 2026 a las 20.56.04_3
       rect:
         serializedVersion: 2
-        x: 104
-        y: 1
-        width: 42
-        height: 41
+        x: 236
+        y: 7
+        width: 60
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -199,74 +190,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 96cb1dafe7d917850800000000000000
-      internalID: 6373048116405451881
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Idle_4
-      rect:
-        serializedVersion: 2
-        x: 113
-        y: 37
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3d4b2fc561f8fc460800000000000000
-      internalID: 7264182050183361747
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Idle_5
-      rect:
-        serializedVersion: 2
-        x: 155
-        y: 1
-        width: 41
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bd9b7fa6335a9a8d0800000000000000
-      internalID: -2834552850196481573
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Idle_6
-      rect:
-        serializedVersion: 2
-        x: 204
-        y: 2
-        width: 42
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 40a65a6e4146f7d20800000000000000
-      internalID: 3278449094680734212
+      spriteID: 5830b7c595653d500800000000000000
+      internalID: 419774132079231877
       vertices: []
       indices: 
       edges: []
@@ -285,13 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Idle_0: 4723107735738678597
-      Idle_1: -7385789195546760866
-      Idle_2: 3234629978573100161
-      Idle_3: 6373048116405451881
-      Idle_4: 7264182050183361747
-      Idle_5: -2834552850196481573
-      Idle_6: 3278449094680734212
+      Untitled - 28 de junio de 2026 a las 20.56.04_0: 8497063342416556143
+      Untitled - 28 de junio de 2026 a las 20.56.04_1: 9133606437599885255
+      Untitled - 28 de junio de 2026 a las 20.56.04_2: 2966301367134159113
+      Untitled - 28 de junio de 2026 a las 20.56.04_3: 419774132079231877
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
