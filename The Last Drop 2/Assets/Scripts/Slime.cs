@@ -21,12 +21,27 @@ public class Slime : Enemigos
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
+
+        // --- EL SEGURO: Si te olvidaste de poner el AudioSource en el Inspector, se agrega solo ---
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false; // Evitamos que haga ruido al iniciar el nivel
+        }
+    }
+
+    private void Start()
+    {
+        // Inicializamos el timer con el intervalo para que el sonido de salto no se sature al principio
+        bounceTimer = bounceInterval;
     }
 
     private void Update()
     {
-        if (playerScript == null)
+        if (playerScript == null && player != null)
             playerScript = player.GetComponent<Player>();
+
+        if (player == null) return;
 
         float distance = Vector3.Distance(transform.position, player.position);
 
@@ -48,7 +63,7 @@ public class Slime : Enemigos
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Proyectil"))
+        if (other.CompareTag("Proyectil") || other.gameObject.name.Contains("Gota"))
         {
             vida--;
             Destroy(other.gameObject);
@@ -68,12 +83,16 @@ public class Slime : Enemigos
         bool isMoving = direction.sqrMagnitude > 0.0001f;
         animator.SetBool("IsMoving", isMoving);
 
+        // Control del sonido de rebote rítmico
         if (isMoving)
         {
             bounceTimer -= Time.deltaTime;
             if (bounceTimer <= 0f)
             {
-                audioSource.PlayOneShot(bounceSound);
+                if (bounceSound != null && audioSource != null)
+                {
+                    audioSource.PlayOneShot(bounceSound);
+                }
                 bounceTimer = bounceInterval;
             }
         }
@@ -86,9 +105,14 @@ public class Slime : Enemigos
 
     public override void Atacar()
     {
-        AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+        if (explosionSound != null)
+        {
+            AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+        }
+
         if (playerScript != null)
             playerScript.Damage(daño);
+
         Morir();
     }
 

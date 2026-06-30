@@ -26,6 +26,7 @@ public class Boss : Enemigos
 
     private void Update()
     {
+        // Si la vida heredada de Enemigos llega a 0, el Boss muere
         if (vida <= 0)
         {
             Morir();
@@ -79,13 +80,39 @@ public class Boss : Enemigos
         Instantiate(kamikazePrefab, transform.position + Vector3.right * 1.5f, Quaternion.identity);
     }
 
+    // --- NUEVO MÉTODO: RECIBIR DAÑO ---
+    public void RecibirDano(int cantidad)
+    {
+        vida -= cantidad; // Resta a la vida heredada
+        Debug.Log("¡Boss golpeado! Vida restante: " + vida);
+    }
+
+    // --- DETECCIÓN DE IMPACTOS (TRIGGER Y COLLISION) ---
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // 1. Si toca al jugador, le hace daño
         if (other.CompareTag("Player"))
         {
             Player player = other.GetComponent<Player>();
             if (player != null)
                 player.Damage(daño);
+        }
+
+        // 2. Si lo toca tu gota de agua (Tag: Proyectil)
+        if (other.CompareTag("Proyectil") || other.gameObject.name.Contains("Gota"))
+        {
+            RecibirDano(1); // Le descuenta 1 de vida
+            Destroy(other.gameObject); // Rompe la gotita del jugador
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Por si tus gotas usan colisión sólida en vez de Trigger
+        if (collision.gameObject.CompareTag("Proyectil") || collision.gameObject.name.Contains("Gota"))
+        {
+            RecibirDano(1);
+            Destroy(collision.gameObject);
         }
     }
 
@@ -96,6 +123,7 @@ public class Boss : Enemigos
 
     public override void Morir()
     {
+        Debug.Log("¡El Boss de fuego fue destruido!");
         Destroy(gameObject);
     }
 }

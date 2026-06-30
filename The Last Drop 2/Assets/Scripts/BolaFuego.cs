@@ -1,44 +1,50 @@
 using UnityEngine;
 
-public class BolaFuego : MonoBehaviour
+public class BolaFuegoBoss : MonoBehaviour
 {
     public float velocidad = 6f;
-    public int dano = 1; // Ajusta el daño que quieras que haga
-
     private Vector2 direccion;
 
     void Start()
     {
-        // Busca al jugador por su Tag
+        // Al nacer, la bola busca dónde está el jugador
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+
         if (player != null)
         {
-            // Calcula la dirección exacta hacia el jugador en este instante
+            // Calcula la ruta directa hacia el jugador
             direccion = (player.transform.position - transform.position).normalized;
         }
+        else
+        {
+            // Si el player no existe (ya murió), cae hacia abajo
+            direccion = Vector2.down;
+        }
 
-        // Se destruye solo en 5 segundos si falla el tiro para liberar memoria
-        Destroy(gameObject, 5f);
+        // Se destruye sola a los 4 segundos para no llenar la memoria
+        Destroy(gameObject, 4f);
     }
 
     void Update()
     {
-        transform.Translate(direccion * velocidad * Time.deltaTime);
+        // Se mueve en la dirección calculada
+        transform.Translate(direccion * velocidad * Time.deltaTime, Space.World);
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        // Comprueba si colisionó con el Player
-        if (col.CompareTag("Player"))
+        // Si choca contra el jugador...
+        if (col.gameObject.tag == "Player")
         {
             Player playerScript = col.GetComponent<Player>();
             if (playerScript != null)
             {
-                // Conexión directa con el método de tu Player
-                playerScript.Damage(dano);
+                // Llama al método Damage de tu Player (del UML)
+                playerScript.Damage(1);
             }
 
-            Destroy(gameObject); // La bola desaparece al impactar
+            // La bola de fuego se destruye al golpear
+            Destroy(gameObject);
         }
     }
 }

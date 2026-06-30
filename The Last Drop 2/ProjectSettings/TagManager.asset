@@ -8,6 +8,8 @@ TagManager:
   - Box_Naranja
   - Box_Morado
   - KeyItem
+  - Enemigo
+  - Proyectil
   layers:
   - Default
   - TransparentFX

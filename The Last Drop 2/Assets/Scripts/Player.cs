@@ -132,6 +132,13 @@ public class Player : MonoBehaviour
         Debug.Log("BOOM! Disparo de Bazooka");
     }
 
+    // --- ¡ACÁ ESTÁ LA FUNCIÓN NUEVA QUE BUSCABA EL NPC! ---
+    public void ActivarBazooka()
+    {
+        tieneBazooka = true;
+        Debug.Log("¡El NPC me dio el Bazooka! Disparo activado.");
+    }
+
     public void Damage(int cantidadDano)
     {
         Vida -= cantidadDano;

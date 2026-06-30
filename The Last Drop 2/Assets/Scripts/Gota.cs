@@ -4,7 +4,10 @@ public class Gota : MonoBehaviour
 {
     private Vector2 direccion;
     private float velocidad;
-    public int dano = 1; // Le quitará 1 de vida por cada golpe
+    public int dano = 1;
+
+    [Header("Configuración de Sonido")]
+    [SerializeField] private AudioClip sonidoImpacto;
 
     public void ConfigurarBala(Vector2 dir, float vel)
     {
@@ -20,24 +23,38 @@ public class Gota : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Enemigo")
+        // Si choca contra un enemigo
+        if (col.gameObject.CompareTag("Enemigo"))
         {
-            // Intentamos buscar si el enemigo es el Boss
             FuegoBoss boss = col.GetComponent<FuegoBoss>();
 
             if (boss != null)
             {
-                // Si ES el Boss, le restamos vida
                 boss.TomarDano(dano);
             }
             else
             {
-                // Si NO es el boss (es decir, es un bichito kamikaze), lo destruimos de 1 tiro
                 Destroy(col.gameObject);
             }
 
-            // La gota se destruye al chocar
+            ReproducirSonidoImpacto();
             Destroy(gameObject);
+        }
+        // Si choca contra el mapa (muros o suelos)
+        else if (col.gameObject.layer == LayerMask.NameToLayer("Ground") || col.gameObject.name.Contains("Muro"))
+        {
+            ReproducirSonidoImpacto();
+            Destroy(gameObject);
+        }
+    }
+
+    private void ReproducirSonidoImpacto()
+    {
+        if (sonidoImpacto != null)
+        {
+            // Forzamos Z en 0f para que el sonido no se reproduzca lejos de la cámara
+            Vector3 posicion2D = new Vector3(transform.position.x, transform.position.y, 0f);
+            AudioSource.PlayClipAtPoint(sonidoImpacto, posicion2D);
         }
     }
 }
