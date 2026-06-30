@@ -16,17 +16,18 @@ public class Boss : Enemigos
     private Vector3 destinoActual;
     private float timerMovimiento;
     private int contadorTandas = 0;
+    private bool activado = false;
 
     private void Start()
     {
         posicionCentral = transform.position;
         destinoActual = posicionCentral;
-        StartCoroutine(CicloAtaques());
     }
 
     private void Update()
     {
-        // Si la vida heredada de Enemigos llega a 0, el Boss muere
+        if (!activado) return;
+
         if (vida <= 0)
         {
             Morir();
@@ -43,6 +44,13 @@ public class Boss : Enemigos
         transform.position = Vector3.MoveTowards(transform.position, destinoActual, velocidad * Time.deltaTime);
     }
 
+    public void Activar()
+    {
+        if (activado) return;
+        activado = true;
+        StartCoroutine(CicloAtaques());
+    }
+
     private void ElegirNuevoDestino()
     {
         Vector2 offset = Random.insideUnitCircle * rangoMovimiento;
@@ -55,7 +63,6 @@ public class Boss : Enemigos
         {
             yield return new WaitForSeconds(tiempoEntreTandas);
             yield return StartCoroutine(DispararTanda());
-
             contadorTandas++;
             if (contadorTandas >= 2)
             {
@@ -80,17 +87,14 @@ public class Boss : Enemigos
         Instantiate(kamikazePrefab, transform.position + Vector3.right * 1.5f, Quaternion.identity);
     }
 
-    // --- NUEVO MÉTODO: RECIBIR DAÑO ---
     public void RecibirDano(int cantidad)
     {
-        vida -= cantidad; // Resta a la vida heredada
+        vida -= cantidad;
         Debug.Log("¡Boss golpeado! Vida restante: " + vida);
     }
 
-    // --- DETECCIÓN DE IMPACTOS (TRIGGER Y COLLISION) ---
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // 1. Si toca al jugador, le hace daño
         if (other.CompareTag("Player"))
         {
             Player player = other.GetComponent<Player>();
@@ -98,17 +102,15 @@ public class Boss : Enemigos
                 player.Damage(daño);
         }
 
-        // 2. Si lo toca tu gota de agua (Tag: Proyectil)
         if (other.CompareTag("Proyectil") || other.gameObject.name.Contains("Gota"))
         {
-            RecibirDano(1); // Le descuenta 1 de vida
-            Destroy(other.gameObject); // Rompe la gotita del jugador
+            RecibirDano(1);
+            Destroy(other.gameObject);
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Por si tus gotas usan colisión sólida en vez de Trigger
         if (collision.gameObject.CompareTag("Proyectil") || collision.gameObject.name.Contains("Gota"))
         {
             RecibirDano(1);
