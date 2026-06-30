@@ -2088,7 +2088,7 @@ GameObject:
   - component: {fileID: 274613289}
   m_Layer: 0
   m_Name: BOSS
-  m_TagString: Untagged
+  m_TagString: Enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2660,7 +2660,7 @@ GameObject:
   - component: {fileID: 446282635}
   m_Layer: 0
   m_Name: Rata
-  m_TagString: Untagged
+  m_TagString: Enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5722,7 +5722,7 @@ MonoBehaviour:
   panelDialogo: {fileID: 63986068}
   textoDialogo: {fileID: 1746853728}
   textoPressE: {fileID: 878215393}
-  elTextoQueVaADecir: Hey! I think this might help you on your adventure
+  elTextoQueVaADecir: 
   puertaAAbrir: {fileID: 150471678}
 --- !u!1 &800891452
 GameObject:
@@ -5758,7 +5758,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 5.5, y: -2.1}
   m_SizeDelta: {x: 50, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &800891454
@@ -5781,7 +5781,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: " Hey! I think this might help you on your adventure.\n Take this bazooka
+    and this key, press E."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5846,7 +5847,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0.27183247, z: 0, w: 0}
+  m_margin: {x: -16.643597, y: 0.27183247, z: -8.655659, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -6881,6 +6882,87 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1086906831
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 586625587155645988, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6970833
+      objectReference: {fileID: 0}
+    - target: {fileID: 586625587155645988, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7169812
+      objectReference: {fileID: 0}
+    - target: {fileID: 586625587155645988, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+      propertyPath: m_Color.r
+      value: 0.3754005
+      objectReference: {fileID: 0}
+    - target: {fileID: 6903377796086928481, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+      propertyPath: m_Name
+      value: BazookaGota
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545960573122878361, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545960573122878361, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545960573122878361, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545960573122878361, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.8309317
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545960573122878361, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -7.5113926
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545960573122878361, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545960573122878361, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545960573122878361, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545960573122878361, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545960573122878361, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545960573122878361, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545960573122878361, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7545960573122878361, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
 --- !u!1 &1143896148
 GameObject:
   m_ObjectHideFlags: 0
@@ -8385,8 +8467,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -9.19, y: -0.19999981}
+  m_SizeDelta: {x: 18.38, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1365729618
 MonoBehaviour:
@@ -9801,12 +9883,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b91c4e45a51e23c458b72a115a39dcdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: 1
+  vida: 5
   velocidad: 3
   disparo: 1
   tieneBazooka: 0
   prefabGota: {fileID: 6903377796086928481, guid: 50f0db30ef35a7a41b5cf71e39a68ca9, type: 3}
-  velocidadGota: 10
+  velocidadGota: 8
+  prefabBazooka: {fileID: 6903377796086928481, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
+  velocidadMisil: 8
+  sonidoDano: {fileID: 8300000, guid: b2652d047df10fa41851a960aab1d427, type: 3}
 --- !u!70 &1629859014
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -9935,7 +10020,7 @@ Transform:
   m_GameObject: {fileID: 1629859012}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.05, y: -14.16, z: 0}
+  m_LocalPosition: {x: -11.03, y: -15.46, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11533,9 +11618,10 @@ GameObject:
   - component: {fileID: 1857863866}
   - component: {fileID: 1857863868}
   - component: {fileID: 1857863869}
+  - component: {fileID: 1857863870}
   m_Layer: 0
   m_Name: Slime
-  m_TagString: Untagged
+  m_TagString: Enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11813,6 +11899,42 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!58 &1857863870
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857863862}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.055
 --- !u!1 &1868075039
 GameObject:
   m_ObjectHideFlags: 0
@@ -11849,7 +11971,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 6.7948675, y: -9.573617}
+  m_AnchoredPosition: {x: 0.048, y: 0.478}
   m_SizeDelta: {x: 58.5427, y: 23.4171}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1868075041
@@ -14301,11 +14423,11 @@ PrefabInstance:
       objectReference: {fileID: 1629859017}
     - target: {fileID: 8134346342618817782, guid: 5e19e1bce7170334caf4766215e8e90c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.06
+      value: 8.11
       objectReference: {fileID: 0}
     - target: {fileID: 8134346342618817782, guid: 5e19e1bce7170334caf4766215e8e90c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 24.21
+      value: -7.49
       objectReference: {fileID: 0}
     - target: {fileID: 8134346342618817782, guid: 5e19e1bce7170334caf4766215e8e90c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -14441,3 +14563,4 @@ SceneRoots:
   - {fileID: 446282639}
   - {fileID: 954491466}
   - {fileID: 1593200303}
+  - {fileID: 1086906831}

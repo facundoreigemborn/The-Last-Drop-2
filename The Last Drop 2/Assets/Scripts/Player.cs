@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // --- VARIABLES ENCAPSULADAS ---
     [SerializeField] private int vida = 3;
     [SerializeField] private float velocidad = 5f;
     [SerializeField] private int disparo;
@@ -12,14 +11,20 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject prefabGota;
     [SerializeField] private float velocidadGota = 10f;
 
+    [Header("Configuración del Bazooka")]
+    [SerializeField] private GameObject prefabBazooka;
+    [SerializeField] private float velocidadMisil = 12f;
+
+    [Header("Configuración de Sonido")]
+    [SerializeField] private AudioClip sonidoDano;
+
     private Rigidbody2D rb;
     private Vector2 direccionEntrada;
-    private Vector2 ultimaDireccion = new Vector2(0, -1); // Guarda a dónde miró por última vez (empieza mirando abajo)
+    private Vector2 ultimaDireccion = new Vector2(0, -1);
 
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
-    // --- PROPIEDADES PÚBLICAS ---
     public int Vida
     {
         get => vida;
@@ -44,7 +49,6 @@ public class Player : MonoBehaviour
         set => tieneBazooka = value;
     }
 
-    // --- MÉTODOS DE UNITY ---
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -57,13 +61,11 @@ public class Player : MonoBehaviour
         direccionEntrada.x = Input.GetAxisRaw("Horizontal");
         direccionEntrada.y = Input.GetAxisRaw("Vertical");
 
-        // Si el jugador se está moviendo, actualizamos la última dirección
         if (direccionEntrada != Vector2.zero)
         {
             ultimaDireccion = direccionEntrada.normalized;
         }
 
-        // --- CONTROL DE ANIMACIONES ---
         if (animator != null)
         {
             float velocidadActual = direccionEntrada.sqrMagnitude;
@@ -71,7 +73,6 @@ public class Player : MonoBehaviour
 
             if (velocidadActual > 0)
             {
-                // Solo usamos moveX y moveY, que son los que sí tienes en tu Blend Tree
                 animator.SetFloat("moveX", direccionEntrada.x);
                 animator.SetFloat("moveY", direccionEntrada.y);
             }
@@ -83,7 +84,6 @@ public class Player : MonoBehaviour
             else if (direccionEntrada.x > 0) spriteRenderer.flipX = false;
         }
 
-        // --- DISPARO ---
         if (Input.GetButtonDown("Fire1"))
         {
             Shoot();
@@ -96,7 +96,6 @@ public class Player : MonoBehaviour
         Move(dir);
     }
 
-    // --- MÉTODOS DEL DIAGRAMA ---
     public void Move(Vector3 dir)
     {
         rb.linearVelocity = new Vector2(dir.x * velocidad, dir.y * velocidad);
@@ -110,7 +109,6 @@ public class Player : MonoBehaviour
         }
         else
         {
-            // Usamos la variable de código en lugar del Animator para saber a dónde disparar
             Vector2 direccionDisparo = ultimaDireccion;
 
             if (direccionDisparo == Vector2.zero) direccionDisparo = Vector2.down;
@@ -129,10 +127,21 @@ public class Player : MonoBehaviour
 
     public void Bazooka()
     {
-        Debug.Log("BOOM! Disparo de Bazooka");
+        Vector2 direccionDisparo = ultimaDireccion;
+
+        if (direccionDisparo == Vector2.zero) direccionDisparo = Vector2.down;
+
+        if (prefabBazooka != null)
+        {
+            GameObject misilNuevo = Instantiate(prefabBazooka, transform.position, Quaternion.identity);
+            Gota scriptMisil = misilNuevo.GetComponent<Gota>();
+            if (scriptMisil != null)
+            {
+                scriptMisil.ConfigurarBala(direccionDisparo, velocidadMisil);
+            }
+        }
     }
 
-    // --- ¡ACÁ ESTÁ LA FUNCIÓN NUEVA QUE BUSCABA EL NPC! ---
     public void ActivarBazooka()
     {
         tieneBazooka = true;
@@ -143,6 +152,12 @@ public class Player : MonoBehaviour
     {
         Vida -= cantidadDano;
         Debug.Log($"Player recibió daño. Vida restante: {Vida}");
+
+        if (sonidoDano != null)
+        {
+            Vector3 posicion2D = new Vector3(transform.position.x, transform.position.y, 0f);
+            AudioSource.PlayClipAtPoint(sonidoDano, posicion2D);
+        }
 
         if (Vida <= 0)
         {
