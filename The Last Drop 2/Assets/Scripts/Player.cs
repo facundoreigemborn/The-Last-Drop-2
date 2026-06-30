@@ -2,17 +2,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // --- VARIABLES ENCAPSULADAS (Ocultas en la clase, editables en Unity) ---
+    // --- VARIABLES ENCAPSULADAS ---
     [SerializeField] private int vida = 3;
     [SerializeField] private float velocidad = 5f;
     [SerializeField] private int disparo;
     [SerializeField] private bool tieneBazooka = false;
 
-    // Variables de control de físicas internas
+    [Header("Configuración de la Gota")]
+    [SerializeField] private GameObject prefabGota;
+    [SerializeField] private float velocidadGota = 10f;
+
     private Rigidbody2D rb;
     private Vector2 direccionEntrada;
+    private Vector2 ultimaDireccion = new Vector2(0, -1); // Guarda a dónde miró por última vez (empieza mirando abajo)
 
-    // Componentes para la animación
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
@@ -20,7 +23,7 @@ public class Player : MonoBehaviour
     public int Vida
     {
         get => vida;
-        private set => vida = Mathf.Max(0, value); // Evita que la vida sea menor a 0
+        private set => vida = Mathf.Max(0, value);
     }
 
     public float Velocidad
@@ -45,57 +48,42 @@ public class Player : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
-        // Inicializamos los componentes del Animator y SpriteRenderer
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        // Dirección inicial por defecto del Idle (mirando abajo)
-        if (animator != null)
-        {
-            animator.SetFloat("idleY", -1f);
-        }
     }
 
     private void Update()
     {
-        // Entrada por teclado
         direccionEntrada.x = Input.GetAxisRaw("Horizontal");
         direccionEntrada.y = Input.GetAxisRaw("Vertical");
+
+        // Si el jugador se está moviendo, actualizamos la última dirección
+        if (direccionEntrada != Vector2.zero)
+        {
+            ultimaDireccion = direccionEntrada.normalized;
+        }
 
         // --- CONTROL DE ANIMACIONES ---
         if (animator != null)
         {
-            // Calculamos la magnitud de movimiento (0 quieto, >0 moviéndose)
             float velocidadActual = direccionEntrada.sqrMagnitude;
             animator.SetFloat("Speed", velocidadActual);
 
             if (velocidadActual > 0)
             {
-                // Si hay input, actualizamos caminar
+                // Solo usamos moveX y moveY, que son los que sí tienes en tu Blend Tree
                 animator.SetFloat("moveX", direccionEntrada.x);
                 animator.SetFloat("moveY", direccionEntrada.y);
-
-                // Y guardamos la dirección para cuando pase a Idle
-                animator.SetFloat("idleX", direccionEntrada.x);
-                animator.SetFloat("idleY", direccionEntrada.y);
             }
         }
 
-        // Espejar el sprite si va a la izquierda usando la animación de la derecha
         if (spriteRenderer != null)
         {
-            if (direccionEntrada.x < 0)
-            {
-                spriteRenderer.flipX = true;
-            }
-            else if (direccionEntrada.x > 0)
-            {
-                spriteRenderer.flipX = false;
-            }
+            if (direccionEntrada.x < 0) spriteRenderer.flipX = true;
+            else if (direccionEntrada.x > 0) spriteRenderer.flipX = false;
         }
-        // ------------------------------
 
+        // --- DISPARO ---
         if (Input.GetButtonDown("Fire1"))
         {
             Shoot();
@@ -104,7 +92,6 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Enviamos el Vector3 al método Move como pide tu diagrama
         Vector3 dir = new Vector3(direccionEntrada.x, direccionEntrada.y, 0).normalized;
         Move(dir);
     }
@@ -112,7 +99,6 @@ public class Player : MonoBehaviour
     // --- MÉTODOS DEL DIAGRAMA ---
     public void Move(Vector3 dir)
     {
-        // Usamos la variable privada encapsulada para las físicas
         rb.linearVelocity = new Vector2(dir.x * velocidad, dir.y * velocidad);
     }
 
@@ -124,7 +110,20 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Debug.Log("Disparo normal!");
+            // Usamos la variable de código en lugar del Animator para saber a dónde disparar
+            Vector2 direccionDisparo = ultimaDireccion;
+
+            if (direccionDisparo == Vector2.zero) direccionDisparo = Vector2.down;
+
+            if (prefabGota != null)
+            {
+                GameObject gotaNueva = Instantiate(prefabGota, transform.position, Quaternion.identity);
+                Gota scriptGota = gotaNueva.GetComponent<Gota>();
+                if (scriptGota != null)
+                {
+                    scriptGota.ConfigurarBala(direccionDisparo, velocidadGota);
+                }
+            }
         }
     }
 
@@ -149,6 +148,6 @@ public class Player : MonoBehaviour
         Debug.Log("Player Muerto - Game Over");
         rb.linearVelocity = Vector2.zero;
         if (animator != null) animator.enabled = false;
-        this.enabled = false; // Desactiva el script de movimiento
+        this.enabled = false;
     }
 }
