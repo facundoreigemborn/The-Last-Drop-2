@@ -3,7 +3,8 @@ using UnityEngine;
 public class PuzzlePuerta : Trampas
 {
     [SerializeField] private ZonaBloque[] zonas;
-    [SerializeField] private GameObject puerta;
+    [SerializeField] private Animator animatorPuerta;
+    [SerializeField] private Collider2D colliderPuerta;
 
     public void VerificarPuzzle()
     {
@@ -11,7 +12,8 @@ public class PuzzlePuerta : Trampas
         {
             if (!zona.CajaEnLugar()) return;
         }
-        puerta.SetActive(false);
+        animatorPuerta.Play("Door");
+        colliderPuerta.enabled = false;
     }
 
     public override void Activar(GameObject objetivo) { }
