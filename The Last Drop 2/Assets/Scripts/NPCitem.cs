@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 
-// Heredamos de NPCs para estar ligados como pide tu compañero
 public class NPCitem : NPCs
 {
     [Header("Variables del Diagrama")]
@@ -54,7 +53,6 @@ public class NPCitem : NPCs
         }
     }
 
-    // --- LA FUNCIÓN QUE PIDE EL DIAGRAMA ---
     public void EntregarItem(Player p)
     {
         if (entregado == false)
@@ -67,24 +65,27 @@ public class NPCitem : NPCs
         }
     }
 
-    // --- LA ACCIÓN AL APRETAR LA E ---
     public override void Interactuar()
     {
-        // 1. Mostrar/Ocultar el panel igual que en tu otro script
         dialogoAbierto = !dialogoAbierto;
         panelDialogo.SetActive(dialogoAbierto);
         textoDialogo.text = elTextoQueVaADecir;
 
-        // 2. Ejecutar los eventos SOLO cuando el diálogo se abre (no cuando se cierra)
         if (dialogoAbierto)
         {
-            // Desaparecemos la puerta
             if (puertaAAbrir != null)
             {
-                puertaAAbrir.SetActive(false);
+                PuertaMecanismo scriptPuerta = puertaAAbrir.GetComponent<PuertaMecanismo>();
+                if (scriptPuerta != null)
+                {
+                    scriptPuerta.AbrirPuerta();
+                }
+                else
+                {
+                    puertaAAbrir.SetActive(false);
+                }
             }
 
-            // Buscamos al jugador y le damos el item
             Player elJugador = FindAnyObjectByType<Player>();
             if (elJugador != null)
             {

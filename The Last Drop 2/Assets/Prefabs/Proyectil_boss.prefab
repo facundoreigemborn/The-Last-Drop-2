@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21be1abf0faa06a43846fd1267bcbd47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 4
+  velocidad: 2
   distanciaSeguimiento: 3
   "da\xF1o": 1
   tiempoVida: 2
