@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 public class Gota : MonoBehaviour
 {
     private Vector2 direccion;
@@ -23,24 +24,20 @@ public class Gota : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        // Si choca contra un enemigo
         if (col.gameObject.CompareTag("Enemigo"))
         {
-            FuegoBoss boss = col.GetComponent<FuegoBoss>();
-
+            Boss boss = col.GetComponent<Boss>();
             if (boss != null)
             {
-                boss.TomarDano(dano);
+                boss.RecibirDano(dano);
             }
             else
             {
                 Destroy(col.gameObject);
             }
-
             ReproducirSonidoImpacto();
             Destroy(gameObject);
         }
-        // Si choca contra el mapa (muros o suelos)
         else if (col.gameObject.layer == LayerMask.NameToLayer("Ground") || col.gameObject.name.Contains("Muro"))
         {
             ReproducirSonidoImpacto();
@@ -52,7 +49,6 @@ public class Gota : MonoBehaviour
     {
         if (sonidoImpacto != null)
         {
-            // Forzamos Z en 0f para que el sonido no se reproduzca lejos de la cámara
             Vector3 posicion2D = new Vector3(transform.position.x, transform.position.y, 0f);
             AudioSource.PlayClipAtPoint(sonidoImpacto, posicion2D);
         }

@@ -2623,7 +2623,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100
+  m_Mass: 15
   m_LinearDamping: 3
   m_AngularDamping: 3
   m_GravityScale: 0
@@ -2637,7 +2637,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &236629822
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2976,7 +2976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6f3cdd5d1f1f7d48adb36e5a1dfe3be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: 15
+  vida: 1
   "da\xF1o": 2
   velocidad: 4
   proyectilPrefab: {fileID: 5148566426689738448, guid: 3a95936f13c8648499bdb3bda9754d28, type: 3}
@@ -3110,7 +3110,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100
+  m_Mass: 15
   m_LinearDamping: 3
   m_AngularDamping: 3
   m_GravityScale: 0
@@ -3124,7 +3124,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &376460199
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6697,7 +6697,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.5, y: -2.1}
+  m_AnchoredPosition: {x: 5.5, y: 2.6}
   m_SizeDelta: {x: 50, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &800891454
@@ -6720,8 +6720,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " Hey! I think this might help you on your adventure.\n Take this bazooka
-    and this key, press E."
+  m_text: 'Hey! I think this might help you on your adventure.
+
+    Take this bazooka
+    and this key, press E to grab them.
+
+    Remember to press Space.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6786,7 +6790,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -16.643597, y: 0.27183247, z: -8.655659, w: 0}
+  m_margin: {x: -16.643597, y: 0.27183247, z: -6.0491943, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -9340,7 +9344,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &1337652522
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9827,8 +9831,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -9.19, y: -0.19999981}
-  m_SizeDelta: {x: 18.38, y: 0}
+  m_AnchoredPosition: {x: -9.19, y: 4.98}
+  m_SizeDelta: {x: 18.38, y: 10.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1365729618
 MonoBehaviour:
@@ -10582,7 +10586,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &1479531626
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11308,6 +11312,7 @@ MonoBehaviour:
   prefabBazooka: {fileID: 6903377796086928481, guid: 7754a8b28dfd065409d27c0761292c3b, type: 3}
   velocidadMisil: 8
   sonidoDano: {fileID: 8300000, guid: b2652d047df10fa41851a960aab1d427, type: 3}
+  barraVida: {fileID: 1748463273}
 --- !u!70 &1629859014
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -11436,7 +11441,7 @@ Transform:
   m_GameObject: {fileID: 1629859012}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.03, y: -16.64, z: 0}
+  m_LocalPosition: {x: -14.5, y: 2.1, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11602,7 +11607,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &1635805079
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13963,6 +13968,8 @@ MonoBehaviour:
   playerCollider: {fileID: 1629859014}
   textoPressE: {fileID: 1623477767}
   blockedPipePortal: {fileID: 1286978636}
+  animatorPuerta: {fileID: 150471679}
+  colliderPuerta: {fileID: 150471682}
   sonidoColeccion: {fileID: 8300000, guid: 092199e7f194a374bb733521bf6d8bc6, type: 3}
   hasBeenCollected: 0
 --- !u!1 &1880699362
@@ -15548,7 +15555,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100
+  m_Mass: 15
   m_LinearDamping: 3
   m_AngularDamping: 3
   m_GravityScale: 0
@@ -15562,7 +15569,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &2079749910
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15627,7 +15634,7 @@ Transform:
   m_GameObject: {fileID: 2079749907}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.34, y: 2.19, z: 0}
+  m_LocalPosition: {x: -16.34, y: 2.19, z: 0}
   m_LocalScale: {x: 0.40567908, y: 0.31094, z: 0.35}
   m_ConstrainProportionsScale: 0
   m_Children: []

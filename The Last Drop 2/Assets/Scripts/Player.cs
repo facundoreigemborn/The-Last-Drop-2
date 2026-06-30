@@ -1,4 +1,8 @@
+
+
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -18,12 +22,15 @@ public class Player : MonoBehaviour
     [Header("Configuración de Sonido")]
     [SerializeField] private AudioClip sonidoDano;
 
+    [Header("HUD")]
+    [SerializeField] private Image barraVida;
+
     private Rigidbody2D rb;
     private Vector2 direccionEntrada;
     private Vector2 ultimaDireccion = new Vector2(0, -1);
-
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private int vidaMaxima;
 
     public int Vida
     {
@@ -54,6 +61,8 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        vidaMaxima = vida;
+        ActualizarHUD();
     }
 
     private void Update()
@@ -62,9 +71,7 @@ public class Player : MonoBehaviour
         direccionEntrada.y = Input.GetAxisRaw("Vertical");
 
         if (direccionEntrada != Vector2.zero)
-        {
             ultimaDireccion = direccionEntrada.normalized;
-        }
 
         if (animator != null)
         {
@@ -85,9 +92,10 @@ public class Player : MonoBehaviour
         }
 
         if (Input.GetButtonDown("Fire1"))
-        {
             Shoot();
-        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && tieneBazooka)
+            Bazooka();
     }
 
     private void FixedUpdate()
@@ -103,32 +111,21 @@ public class Player : MonoBehaviour
 
     public void Shoot()
     {
-        if (tieneBazooka)
-        {
-            Bazooka();
-        }
-        else
-        {
-            Vector2 direccionDisparo = ultimaDireccion;
+        Vector2 direccionDisparo = ultimaDireccion;
+        if (direccionDisparo == Vector2.zero) direccionDisparo = Vector2.down;
 
-            if (direccionDisparo == Vector2.zero) direccionDisparo = Vector2.down;
-
-            if (prefabGota != null)
-            {
-                GameObject gotaNueva = Instantiate(prefabGota, transform.position, Quaternion.identity);
-                Gota scriptGota = gotaNueva.GetComponent<Gota>();
-                if (scriptGota != null)
-                {
-                    scriptGota.ConfigurarBala(direccionDisparo, velocidadGota);
-                }
-            }
+        if (prefabGota != null)
+        {
+            GameObject gotaNueva = Instantiate(prefabGota, transform.position, Quaternion.identity);
+            Gota scriptGota = gotaNueva.GetComponent<Gota>();
+            if (scriptGota != null)
+                scriptGota.ConfigurarBala(direccionDisparo, velocidadGota);
         }
     }
 
     public void Bazooka()
     {
         Vector2 direccionDisparo = ultimaDireccion;
-
         if (direccionDisparo == Vector2.zero) direccionDisparo = Vector2.down;
 
         if (prefabBazooka != null)
@@ -136,9 +133,7 @@ public class Player : MonoBehaviour
             GameObject misilNuevo = Instantiate(prefabBazooka, transform.position, Quaternion.identity);
             Gota scriptMisil = misilNuevo.GetComponent<Gota>();
             if (scriptMisil != null)
-            {
                 scriptMisil.ConfigurarBala(direccionDisparo, velocidadMisil);
-            }
         }
     }
 
@@ -151,6 +146,7 @@ public class Player : MonoBehaviour
     public void Damage(int cantidadDano)
     {
         Vida -= cantidadDano;
+        ActualizarHUD();
         Debug.Log($"Player recibió daño. Vida restante: {Vida}");
 
         if (sonidoDano != null)
@@ -160,9 +156,13 @@ public class Player : MonoBehaviour
         }
 
         if (Vida <= 0)
-        {
             Murio();
-        }
+    }
+
+    private void ActualizarHUD()
+    {
+        if (barraVida != null)
+            barraVida.fillAmount = (float)vida / vidaMaxima;
     }
 
     private void Murio()
@@ -171,5 +171,6 @@ public class Player : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         if (animator != null) animator.enabled = false;
         this.enabled = false;
+        SceneManager.LoadScene(2);
     }
 }

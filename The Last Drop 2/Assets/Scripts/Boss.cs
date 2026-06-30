@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Boss : Enemigos
 {
@@ -89,6 +90,7 @@ public class Boss : Enemigos
 
     public void RecibirDano(int cantidad)
     {
+        if (vida <= 0) return;
         vida -= cantidad;
         Debug.Log("¡Boss golpeado! Vida restante: " + vida);
     }
@@ -101,31 +103,14 @@ public class Boss : Enemigos
             if (player != null)
                 player.Damage(daño);
         }
-
-        if (other.CompareTag("Proyectil") || other.gameObject.name.Contains("Gota"))
-        {
-            RecibirDano(1);
-            Destroy(other.gameObject);
-        }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Proyectil") || collision.gameObject.name.Contains("Gota"))
-        {
-            RecibirDano(1);
-            Destroy(collision.gameObject);
-        }
-    }
-
-    public override void Atacar()
-    {
-        // El ataque se maneja por la corrutina CicloAtaques
-    }
+    public override void Atacar() { }
 
     public override void Morir()
     {
         Debug.Log("¡El Boss de fuego fue destruido!");
+        SceneManager.LoadScene(3);
         Destroy(gameObject);
     }
 }

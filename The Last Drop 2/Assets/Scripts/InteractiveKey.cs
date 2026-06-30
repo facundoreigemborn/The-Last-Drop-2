@@ -8,22 +8,23 @@ public class InteractiveKey : MonoBehaviour
 
     [Header("Referencias de Objetos")]
     [SerializeField] private GameObject textoPressE;
-    public GameObject blockedPipePortal;
+    [SerializeField] private GameObject blockedPipePortal;
+
+    [Header("Puerta")]
+    [SerializeField] private Animator animatorPuerta;
+    [SerializeField] private Collider2D colliderPuerta;
 
     [Header("Configuración de Sonido")]
     [SerializeField] private AudioClip sonidoColeccion;
 
     [Header("Estado")]
     public bool hasBeenCollected = false;
-
     private bool jugadorCerca = false;
 
     private void Start()
     {
         if (textoPressE != null)
-        {
             textoPressE.SetActive(false);
-        }
     }
 
     private void Update()
@@ -40,8 +41,12 @@ public class InteractiveKey : MonoBehaviour
             }
 
             if (textoPressE != null)
-            {
                 textoPressE.SetActive(false);
+
+            if (animatorPuerta != null)
+            {
+                animatorPuerta.Play("Door");
+                colliderPuerta.enabled = false;
             }
 
             if (blockedPipePortal != null)
@@ -66,9 +71,7 @@ public class InteractiveKey : MonoBehaviour
             Debug.Log("El jugador está tocando la llave. ¡Apretá la E!");
 
             if (textoPressE != null && !hasBeenCollected)
-            {
                 textoPressE.SetActive(true);
-            }
         }
     }
 
@@ -79,9 +82,7 @@ public class InteractiveKey : MonoBehaviour
             jugadorCerca = false;
 
             if (textoPressE != null)
-            {
                 textoPressE.SetActive(false);
-            }
         }
     }
 }
